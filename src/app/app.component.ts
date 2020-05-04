@@ -1,23 +1,26 @@
 import { Component } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { Router } from '@angular/router';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 interface FoodNode {
   name: string;
+  value?: string;
   children?: FoodNode[];
 }
 
 const TREE_DATA: FoodNode[] = [
   {
-    name: 'Fruit',
+    name: 'RxJS',
     children: [
-      {name: 'Apple'},
+      {name: '김석곤', value: 'test'},
       {name: 'Banana'},
       {name: 'Fruit loops'},
     ]
   }, {
-    name: 'Vegetables',
+    name: 'Angular',
     children: [
       {
         name: 'Green',
@@ -48,8 +51,18 @@ export class AppComponent {
   treeControl = new NestedTreeControl<FoodNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<FoodNode>();
 
-  constructor() {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
+  ) {
     this.dataSource.data = TREE_DATA;
+  }
+
+  navigateToPage(name: string) {
+    // if (name === 'Degrees') {
+    //   this.router.navigate([<THE_ROUTE_YOU_WISH_TO_NAVIGATE_TO>]);
+    // }
+    alert(name);
   }
 
   hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
