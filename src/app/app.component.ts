@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { Router } from '@angular/router';
@@ -46,16 +47,32 @@ const TREE_DATA: FoodNode[] = [
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'rxjs-leaning';
+  appTitle = 'rxjs-leaning';
+  mobileQuery: MediaQueryList;
 
   treeControl = new NestedTreeControl<FoodNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<FoodNode>();
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    media: MediaMatcher
   ) {
     this.dataSource.data = TREE_DATA;
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    // this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    // this.mobileQuery.addListener(this._mobileQueryListener);
+
+    // storageManager.initialiseStorageSyncListener();
+
+    // this.toastaConfig.theme = 'material';
+    // this.toastaConfig.position = 'top-right';
+    // this.toastaConfig.limit = 100;
+    // this.toastaConfig.showClose = true;
+    // this.toastaConfig.showDuration = false;
+
+    // this.appTitleService.appName = this.appTitle;
+
   }
 
   navigateToPage(name: string) {
