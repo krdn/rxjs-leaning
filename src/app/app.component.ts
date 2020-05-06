@@ -16,8 +16,8 @@ const TREE_DATA: FoodNode[] = [
   {
     name: 'RxJS',
     children: [
-      {name: '김석곤', value: 'test'},
-      {name: 'Banana'},
+      {name: 'Subject', value: 'subject'},
+      {name: 'Home', value: 'home'},
       {name: 'Fruit loops'},
     ]
   }, {
@@ -56,8 +56,8 @@ export class AppComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    media: MediaMatcher
-  ) {
+    media: MediaMatcher) {
+
     this.dataSource.data = TREE_DATA;
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     // this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -76,10 +76,15 @@ export class AppComponent {
   }
 
   navigateToPage(name: string) {
+    this.router.navigate([name]);
+
+
     // if (name === 'Degrees') {
-    //   this.router.navigate([<THE_ROUTE_YOU_WISH_TO_NAVIGATE_TO>]);
+    //   // this.router.navigate([name]);
+    //   this.router.navigate(['subject']);
+    //   alert(name);
     // }
-    alert(name);
+    // alert(name);
   }
 
   hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
